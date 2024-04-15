@@ -47,7 +47,7 @@ with open("numeros.txt", "r") as file:
         element_found = False
         while not element_found:
             try:
-                element = driver.find_element(By.XPATH, '//*[@id="main"]/div[3]/div/div[2]/div[3]')
+                element = driver.find_element(By.XPATH, '//*[@id="main"]/div[3]/div/div[2]/div[1]')
 
                 if element:
                     element_found = True
