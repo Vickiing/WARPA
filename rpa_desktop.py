@@ -28,7 +28,6 @@ def lista_de_imagens():
     return lista_de_imagems
 
 
-
 def captura_imagem(imagem):
 
     image = Image.open(imagem)
@@ -48,11 +47,11 @@ def click_relative(x_ratio, y_ratio):
     y_pos = int(screen_height * y_ratio)
     gui.click(x_pos, y_pos)
 
+
 largura, altura = gui.size()
 
 click_position1 = (346 / largura, 120 / altura)
 click_position2 = (187 / largura, 182 / altura)
-
 
 
 arquivo = 'numeros_teste.txt'
@@ -60,7 +59,7 @@ arquivo_texto = r'mensagem_convidativa.txt'
 
 start_time = time()
 
-#troca tela
+#troca tela e inicio dos envios
 gui.hotkey('alt', 'tab')
 sleep(2)
 
@@ -82,6 +81,7 @@ with open(arquivo, "r") as file:
         gui.click(clica_numero)
         sleep(4)
 
+        #envio das imagens no diretorio images
         win32clipboard.OpenClipboard()
         win32clipboard.EmptyClipboard()
         lista = lista_de_imagens()
@@ -101,6 +101,7 @@ with open(arquivo, "r") as file:
         sleep(2.5)
         gui.press('enter')
         sleep(2)
+        
         #limpar pesquisa e inicia nova conversa
         pesquisa_numero = click_relative(*click_position1)
         gui.click(pesquisa_numero)
