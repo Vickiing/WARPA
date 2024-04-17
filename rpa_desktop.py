@@ -34,6 +34,17 @@ def captura_imagem():
     win32clipboard.CloseClipboard()
 
 
+def click_relative(x_ratio, y_ratio):
+    screen_width, screen_height = gui.size()
+    x_pos = int(screen_width * x_ratio)
+    y_pos = int(screen_height * y_ratio)
+    gui.click(x_pos, y_pos)
+
+largura, altura = gui.size()
+
+click_position1 = (346 / largura, 120 / altura)
+click_position2 = (187 / largura, 182 / altura)
+
 
 
 arquivo = 'numeros_teste.txt'
@@ -43,7 +54,10 @@ arquivo_texto = r'C:\Users\vlsilva\Documents\PYTHON PROJETOS\WApy\WARPA\mensagem
 
 gui.hotkey('alt', 'tab')
 sleep(2)
-gui.click(346,120)
+
+pesquisa_numero = click_relative(*click_position1)
+gui.click(pesquisa_numero)
+
 gui.press('backspace', presses=15 ,interval=0.1)
 sleep(1)
 with open(arquivo, "r") as file:
@@ -55,7 +69,8 @@ with open(arquivo, "r") as file:
         gui.press('backspace', presses=15 ,interval=0.1)
         gui.typewrite(str(numero), interval=0.1)
         sleep(5)
-        gui.click(187,182)
+        pesquisa_numero = click_relative(*click_position2)
+        gui.click(pesquisa_numero)
         sleep(4)
         captura_imagem()
         gui.hotkey('ctrl', 'v')
