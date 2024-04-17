@@ -22,7 +22,7 @@ def enviar_texto_para_area_de_transferencia(arquivo):
 def captura_imagem():
     
 
-    path = r"C:\Users\vlsilva\Documents\PYTHON PROJETOS\WApy\WARPA\images\117.jpg"
+    path = r'\images'
     image = Image.open(path)
     output = BytesIO()
     image.convert("RGB").save(output, "BMP")
@@ -50,7 +50,7 @@ click_position2 = (187 / largura, 182 / altura)
 arquivo = 'numeros_teste.txt'
 
 start_time = time()
-arquivo_texto = r'C:\Users\vlsilva\Documents\PYTHON PROJETOS\WApy\WARPA\mensagem_convidativa.txt'
+arquivo_texto = r'mensagem_convidativa.txt'
 
 gui.hotkey('alt', 'tab')
 sleep(2)
