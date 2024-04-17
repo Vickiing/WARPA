@@ -3,6 +3,7 @@ from time import sleep, time
 import win32clipboard
 from PIL import Image
 from io import BytesIO
+import os
 
 def enviar_texto_para_area_de_transferencia(arquivo):
     with open(arquivo, 'r', encoding='utf-8') as arquivo:
@@ -19,11 +20,18 @@ def enviar_texto_para_area_de_transferencia(arquivo):
     win32clipboard.CloseClipboard()
 
 
-def captura_imagem():
-    
+def lista_de_imagens():
+    base_path = os.path.abspath(os.path.dirname(__file__))
+    images_path = os.path.join(base_path, 'images')
+    image_names = os.listdir(images_path)
+    lista_de_imagems = [os.path.join(images_path, name) for name in image_names]
+    return lista_de_imagems
 
-    path = r'images'
-    image = Image.open(path)
+
+
+def captura_imagem(imagem):
+
+    image = Image.open(imagem)
     output = BytesIO()
     image.convert("RGB").save(output, "BMP")
     data = output.getvalue()[14:]
@@ -48,10 +56,11 @@ click_position2 = (187 / largura, 182 / altura)
 
 
 arquivo = 'numeros_teste.txt'
-
-start_time = time()
 arquivo_texto = r'mensagem_convidativa.txt'
 
+start_time = time()
+
+#troca tela
 gui.hotkey('alt', 'tab')
 sleep(2)
 
@@ -68,17 +77,25 @@ with open(arquivo, "r") as file:
         sleep(1)
         gui.press('backspace', presses=15 ,interval=0.1)
         gui.typewrite(str(numero), interval=0.1)
-        sleep(5)
-        pesquisa_numero = click_relative(*click_position2)
-        gui.click(pesquisa_numero)
+        sleep(2.5)
+        clica_numero = click_relative(*click_position2)
+        gui.click(clica_numero)
         sleep(4)
-        captura_imagem()
-        gui.hotkey('ctrl', 'v')
+
+        win32clipboard.OpenClipboard()
+        win32clipboard.EmptyClipboard()
+        lista = lista_de_imagens()
+        for image_path in lista:
+
+            captura_imagem(image_path)
+            gui.hotkey('ctrl', 'v')
+            sleep(1.5)
+        
         sleep(2.5)
         gui.typewrite('oi', interval=0.1)
         gui.hotkey('enter')
         sleep(2.5)
-        #gui.typewrite(texto, interval=0.1)
+
         enviar_texto_para_area_de_transferencia(arquivo_texto)
         gui.hotkey('ctrl', 'v')
         sleep(2.5)
