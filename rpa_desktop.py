@@ -22,7 +22,7 @@ def enviar_texto_para_area_de_transferencia(arquivo):
 def captura_imagem():
     
 
-    path = r'\images'
+    path = r'images'
     image = Image.open(path)
     output = BytesIO()
     image.convert("RGB").save(output, "BMP")
@@ -64,7 +64,7 @@ with open(arquivo, "r") as file:
     for numero in file:
         sleep(1)
         numero = int(numero)
-        gui.click(346,120)
+        gui.click(pesquisa_numero)
         sleep(1)
         gui.press('backspace', presses=15 ,interval=0.1)
         gui.typewrite(str(numero), interval=0.1)
@@ -85,7 +85,8 @@ with open(arquivo, "r") as file:
         gui.press('enter')
         sleep(2)
         #limpar pesquisa e inicia nova conversa
-        gui.click(346,120)
+        pesquisa_numero = click_relative(*click_position1)
+        gui.click(pesquisa_numero)
         gui.press('backspace', presses=15 ,interval=0.1)
 
 
